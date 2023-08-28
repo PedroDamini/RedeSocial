@@ -61,7 +61,8 @@ def sair():
 @app.route("/perfil")
 @login_required
 def perfil():
-    return render_template('perfil.html')
+    foto_perfil = url_for("static", filename=f"fotos_perfil/{current_user.foto_perfil}")
+    return render_template('perfil.html',foto_perfil=foto_perfil)
 
 @app.route("/post/criar")
 @login_required
