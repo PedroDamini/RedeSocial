@@ -3,6 +3,9 @@ from flask import render_template, redirect, url_for, flash, request
 from comunidadeimpressionadora.forms import FormLogin, FormCriarConta, FormEditarPerfil
 from comunidadeimpressionadora.models import Usuario
 from flask_login import login_user, logout_user, current_user, login_required
+import secrets
+import os
+from PIL import Image
 
 lista_usuarios = ['joao das cove', 'pedrin reidelas', 'polisorbato']
 
@@ -69,6 +72,19 @@ def perfil():
 def criar_post():
     return render_template('criarpost.html')
 
+def salvar_imagem(imagem):
+    codigo = secrets.token_hex(8)
+    nome, extensao = os.path.splitext(imagem.filename)
+    nome_arquivo = nome + codigo + extensao
+    caminho_completo = os.path.join(app.root_path, 'static/fotos_perfil', nome_arquivo)
+    tamanho = (200, 200)
+    #Reduzindo o tamanho da imagem
+    imagem_reduzida = Image.open(imagem)
+    imagem_reduzida.thumbnail(tamanho)
+    #Salvando
+    imagem_reduzida.save(caminho_completo)
+    return nome_arquivo
+
 @app.route("/perfil/editar", methods=['GET', 'POST'])
 @login_required
 def editar_perfil():
@@ -76,11 +92,15 @@ def editar_perfil():
     if form.validate_on_submit():
         current_user.email = form.email.data
         current_user.username = form.username.data
+        if form.foto_perfil.data:
+            nome_imagem = salvar_imagem(form.foto_perfil.data)
+            current_user.foto_perfil = nome_imagem
+
         database.session.commit()
         flash(f'perfil atualizado com sucesso', 'alert-success')
         return redirect(url_for('perfil'))
     elif request.method == 'GET':
         form.email.data = current_user.email
-        form.username.data = current_user.username
+        form.username.data = current_user.username 
     foto_perfil = url_for("static", filename=f"fotos_perfil/{current_user.foto_perfil}")
     return render_template("editarperfil.html", foto_perfil=foto_perfil, form=form)
