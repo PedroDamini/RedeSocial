@@ -7,7 +7,6 @@ import secrets
 import os
 from PIL import Image
 
-lista_usuarios = ['joao das cove', 'pedrin reidelas', 'polisorbato']
 
 @app.route("/")
 def home():
@@ -22,6 +21,7 @@ def contatos():
 @app.route("/usuarios")
 @login_required
 def usuarios():
+    lista_usuarios = Usuario.query.all()
     return render_template('usuarios.html', lista_usuarios=lista_usuarios)
 
 
@@ -72,7 +72,29 @@ def perfil():
 def criar_post():
     return render_template('criarpost.html')
 
-############################################################################################################################################
+
+@app.route("/perfil/editar", methods=['GET', 'POST'])
+@login_required
+def editar_perfil():
+    form = FormEditarPerfil()
+    if form.validate_on_submit():
+        current_user.email = form.email.data
+        current_user.username = form.username.data
+        if form.foto_perfil.data:
+            nome_imagem = salvar_imagem(form.foto_perfil.data)
+            current_user.foto_perfil = nome_imagem
+
+        current_user.cursos = atualizar_cursos(form)
+        database.session.commit()
+        flash(f'perfil atualizado com sucesso', 'alert-success')
+        return redirect(url_for('perfil'))
+    elif request.method == 'GET':
+        form.email.data = current_user.email
+        form.username.data = current_user.username 
+    foto_perfil = url_for("static", filename=f"fotos_perfil/{current_user.foto_perfil}")
+    return render_template("editarperfil.html", foto_perfil=foto_perfil, form=form)
+
+############################################## DEF NO DECORATOR ROUTES ##############################################################################################
 
 def salvar_imagem(imagem):
     codigo = secrets.token_hex(8)
@@ -96,24 +118,3 @@ def atualizar_cursos(form):
     return ';'.join(lista_cursos)
 
 ############################################################################################################################################
-
-@app.route("/perfil/editar", methods=['GET', 'POST'])
-@login_required
-def editar_perfil():
-    form = FormEditarPerfil()
-    if form.validate_on_submit():
-        current_user.email = form.email.data
-        current_user.username = form.username.data
-        if form.foto_perfil.data:
-            nome_imagem = salvar_imagem(form.foto_perfil.data)
-            current_user.foto_perfil = nome_imagem
-
-        current_user.cursos = atualizar_cursos(form)
-        database.session.commit()
-        flash(f'perfil atualizado com sucesso', 'alert-success')
-        return redirect(url_for('perfil'))
-    elif request.method == 'GET':
-        form.email.data = current_user.email
-        form.username.data = current_user.username 
-    foto_perfil = url_for("static", filename=f"fotos_perfil/{current_user.foto_perfil}")
-    return render_template("editarperfil.html", foto_perfil=foto_perfil, form=form)
