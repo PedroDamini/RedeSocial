@@ -67,14 +67,14 @@ def perfil():
     foto_perfil = url_for("static", filename=f"fotos_perfil/{current_user.foto_perfil}")
     return render_template('perfil.html',foto_perfil=foto_perfil)
 
-@app.route("/post/criar")
+@app.route("/post/criar", methods=['GET', 'POST'])
 @login_required
 def criar_post():
     form = FormCriarPost()
     if form.validate_on_submit():
         post = Post(titulo=form.titulo.data, corpo=form.corpo.data, autor=current_user)
         database.session.add(post)
-        database.session.commit
+        database.session.commit()
         flash('Post Criado com sucesso', 'alert-success')
         return redirect(url_for('home'))
     return render_template('criarpost.html', form=form)

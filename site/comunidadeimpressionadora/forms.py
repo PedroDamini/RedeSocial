@@ -46,8 +46,8 @@ class FormEditarPerfil(FlaskForm):
             if usuario:
                 raise ValidationError('E-mail já cadastrado. Cadastre-se com outro e-mail')
             
-            
+
 class FormCriarPost(FlaskForm):
     titulo = StringField('Titulo do Post', validators=[DataRequired(), Length(1, 150)])
     corpo = TextAreaField('Escreva seu Post aqui', validators=[DataRequired()])
-    botao_submit = SubmitField('Criar Post')
+    botao_submit_criarpost = SubmitField('Criar Post')
