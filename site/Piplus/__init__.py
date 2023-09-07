@@ -16,4 +16,4 @@ login_manager.login_view = 'login'
 login_manager.login_message = 'faça login para continuar'
 login_manager.login_message_category = 'alert-warning'
 
-from comunidadeimpressionadora import routes
+from Piplus import routes
