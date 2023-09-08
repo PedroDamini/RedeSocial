@@ -4,6 +4,21 @@
     <div class="container mt-3">
         <h1 style="color: rgb(69, 134, 16);"><strong>Piplus</strong></h1>
         <hr>
-        Posts
+        {% for post in posts%}
+            <div class="row border mt-4 p-3 postclass">
+                <div class="col-3">
+                    <div class="image pe-2">
+                        <img src="{{ url_for("static", filename="fotos_perfil/{}".format(post.autor.foto_perfil)) }}" class="rounded" width="160" >
+                    </div>
+                </div>
+
+                <div class="col-9">
+                    <h3>{{ post.titulo }}</h3>
+                    <p>{{ post.corpo }}</p>
+                </div>
+
+            </div>
+        {% endfor %}
+
     </div>
 {% endblock %}
