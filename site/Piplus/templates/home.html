@@ -5,10 +5,16 @@
         <h1 style="color: rgb(69, 134, 16);"><strong>Piplus</strong></h1>
         <hr>
         {% for post in posts%}
-            <div class="row border mt-4 p-3 postclass">
-                <div class="col-3">
+            <div class="row border mt-4 p-2 postclass">
+                <div class="col-2">
                     <div class="image pe-2">
-                        <img src="{{ url_for("static", filename="fotos_perfil/{}".format(post.autor.foto_perfil)) }}" class="rounded" width="160" >
+                        <img src="{{ url_for("static", filename="fotos_perfil/{}".format(post.autor.foto_perfil)) }}" class="rounded" width="160" >                                                
+                    </div>
+                    <strong>{{ post.autor.username }}</strong>
+                    <div class="row justify-content-center">
+                            {% for curso in post.autor.cursos.split(';') %}
+                                <button type="button" class="btn btn-lg btn-success mt-2" disabled>{{ curso }}</button>
+                            {% endfor %}
                     </div>
                 </div>
 
