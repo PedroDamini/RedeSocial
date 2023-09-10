@@ -8,7 +8,7 @@
             <div class="row border mt-4 p-2 postclass">
                 <div class="col-2">
                     <div class="image pe-2">
-                        <img src="{{ url_for("static", filename="fotos_perfil/{}".format(post.autor.foto_perfil)) }}" class="rounded" width="160" >                                                
+                        <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" class="rounded" width="160" >                                                
                     </div>
                     <strong>{{ post.autor.username }}</strong>
                     <div class="row justify-content-center">
@@ -19,7 +19,9 @@
                 </div>
 
                 <div class="col-9">
-                    <h3>{{ post.titulo }}</h3>
+                    <a style="text-decoration: none; color: rgb(69, 134, 16);" href="{{ url_for('exibir_post', post_id=post.id) }}">
+                        <h3>{{ post.titulo }}</h3>
+                    </a>
                     <p>{{ post.corpo }}</p>
                 </div>
 

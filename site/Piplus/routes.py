@@ -101,6 +101,25 @@ def editar_perfil():
     foto_perfil = url_for("static", filename=f"fotos_perfil/{current_user.foto_perfil}")
     return render_template("editarperfil.html", foto_perfil=foto_perfil, form=form)
 
+@app.route("/post/<post_id>", methods=['GET', 'POST'])
+@login_required
+def exibir_post(post_id):
+    post = Post.query.get(post_id)
+    if current_user == post.autor:
+        form = FormCriarPost()
+        if request.method == 'GET':
+            form.titulo.data = post.titulo
+            form.corpo.data = post.corpo
+        elif form.validate_on_submit():
+            post.titulo = form.titulo.data
+            post.corpo = form.corpo.data
+            database.session.commit()
+            flash('Post atualizado com sucesso', 'alert-success')
+            return redirect(url_for('home'))
+    else:
+        form = None
+    return render_template('post.html', post=post, form=form)
+
 ############################################## DEF NO DECORATOR ROUTES ##############################################################################################
 
 def salvar_imagem(imagem):
