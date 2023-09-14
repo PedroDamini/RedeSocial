@@ -114,7 +114,7 @@ def exibir_post(post_id):
             post.titulo = form.titulo.data
             post.corpo = form.corpo.data
             database.session.commit()
-            flash('Post atualizado com sucesso', 'alert-success')
+            flash('Post atualizado com sucesso', 'alert-success mt-2')
             return redirect(url_for('home'))
     else:
         form = None

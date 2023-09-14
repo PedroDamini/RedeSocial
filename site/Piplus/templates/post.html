@@ -16,7 +16,9 @@
                 </div>
 
                 <div class="col-9">
-                    <h3>{{ post.titulo }}</h3>
+                    <h3>{{ post.titulo }} 
+                        <small class="text-muted" style="font-size: 15px;"> - Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}</small>
+                    </h3>
                     <p>{{ post.corpo }}</p>
                 </div>
 
