@@ -76,7 +76,7 @@ def criar_post():
         post = Post(titulo=form.titulo.data, corpo=form.corpo.data, autor=current_user)
         database.session.add(post)
         database.session.commit()
-        flash('Post Criado com sucesso', 'alert-success')
+        flash('Post Criado com sucesso', 'alert-success mt-2')
         return redirect(url_for('home'))
     return render_template('criarpost.html', form=form)
 
