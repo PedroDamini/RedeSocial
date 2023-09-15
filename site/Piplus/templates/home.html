@@ -20,7 +20,9 @@
 
                 <div class="col-9">
                     <a style="text-decoration: none; color: rgb(69, 134, 16);" href="{{ url_for('exibir_post', post_id=post.id) }}">
-                        <h3>{{ post.titulo }}</h3>
+                        <h3>{{ post.titulo }}
+                            <small class="text-muted" style="font-size: 15px;"> - Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}</small>
+                        </h3>
                     </a>
                     <p>{{ post.corpo }}</p>
                 </div>
