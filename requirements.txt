@@ -34,6 +34,7 @@ packaging==23.1
 Pillow==7.2.0
 pkginfo==1.9.6
 Pygments==2.16.1
+psycopg2==2.9.7
 pywin32-ctypes==0.2.2
 readme-renderer==37.3
 requests==2.31.0
