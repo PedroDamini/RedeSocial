@@ -10,7 +10,7 @@ dnspython==2.3.0
 docutils==0.20.1
 email-validator==2.0.0.post2
 exceptiongroup==1.1.2
-Flask==2.3.2
+Flask==2.3.1
 Flask-Bcrypt==1.0.1
 Flask-Login==0.6.2
 Flask-SQLAlchemy==3.0.5
