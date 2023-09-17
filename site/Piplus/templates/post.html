@@ -96,7 +96,7 @@
         Tem certeza que deseja excluir esse Post? (essa ação não pode ser desfeita)
         </div>
         <div class="modal-footer">
-            <form method="POST" action="{{ url_for('excluir_post', post_id=post.id) }}">
+            <form method="DELETE" action="{{ url_for('excluir_post', post_id=post.id) }}">
                 <button type="submit" class="btn btn-danger">
                     Excluir Post
                 </button>

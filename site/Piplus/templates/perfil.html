@@ -24,7 +24,7 @@
                 {% endif %}
                 <div class="d-flex flex-column">
                     <span class="followers">Posts</span>
-                    <span class="number2">0</span>
+                    <span class="number2">{{ current_user.contar_posts() }}</span>
                 </div>          
             </div>
             <div class="button mt-2 d-flex flex-row align-items-center">

@@ -6,7 +6,6 @@ from flask_login import UserMixin
 def load_usuario(id_usuario):
     return Usuario.query.get(int(id_usuario))
 
-
 class Usuario(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String, nullable=False)
@@ -15,6 +14,9 @@ class Usuario(database.Model, UserMixin):
     foto_perfil = database.Column(database.String, default='default.jpg')
     posts = database.relationship('Post', backref='autor', lazy=True)
     cursos = database.Column(database.String, nullable=False, default='Não Informado')
+
+    def contar_posts(self):
+        return len(self.posts)
 
 
 class Post(database.Model):
