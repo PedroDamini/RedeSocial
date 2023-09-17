@@ -19,7 +19,12 @@
                     <h3>{{ post.titulo }} 
                         <small class="text-muted" style="font-size: 15px;"> - Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}
                         {% if form %}
-                            - <a href="#form_editarpost">Editar Post</a> / <a href="#" data-bs-toggle="modal" data-bs-target="#excluir_post">Excluir Post</a>
+                            <button type="button" class="btn btn-info">
+                                <a href="#form_editarpost" style="text-decoration: none; color: rgb(255, 255, 255);">Editar Post</a>
+                            </button>
+                            <button  href="#" data-bs-toggle="modal" data-bs-target="#excluir_post" type="button" class="btn btn-danger">
+                                <a>Excluir Post</a>
+                            </button>
                         {% endif %}
                         </small>
                     </h3>
@@ -84,15 +89,21 @@
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Post</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        ...
+        Tem certeza que deseja excluir esse Post? (essa ação não pode ser desfeita)
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+            <form method="POST" action="{{ url_for('excluir_post', post_id=post.id) }}">
+                <button type="submit" class="btn btn-danger">
+                    Excluir Post
+                </button>
+            </form>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                Cancelar
+            </button>
         </div>
     </div>
     </div>
