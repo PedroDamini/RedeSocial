@@ -19,8 +19,8 @@
                     <h3>{{ post.titulo }} 
                         <small class="text-muted" style="font-size: 15px;"> - Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}
                         {% if form %}
-                            <button type="button" class="btn btn-info">
-                                <a href="#form_editarpost" style="text-decoration: none; color: rgb(255, 255, 255);">Editar Post</a>
+                            <button id="editarPost" type="button" class="btn btn-info">
+                                <a style="text-decoration: none; color: rgb(255, 255, 255);">Editar Post</a>
                             </button>
                             <button  href="#" data-bs-toggle="modal" data-bs-target="#excluir_post" type="button" class="btn btn-danger">
                                 <a>Excluir Post</a>
@@ -109,4 +109,12 @@
     </div>
 </div>
 
+<script>
+    document.getElementById("editarPost").addEventListener("click", function() {
+    var element = document.getElementById("form_editarpost");
+    if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+    }
+    });
+</script>
 {% endblock %}
