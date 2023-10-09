@@ -38,7 +38,7 @@ class FormEditarPerfil(FlaskForm):
     curso_ppt = BooleanField('Apresentações Impressionador')
     curso_sql = BooleanField('SQL Impressionador')
 
-    botao_submit_editarperfil = SubmitField('confirmar Editação')
+    botao_submit_editarperfil = SubmitField('Salvar')
 
     def validate_email(self, email):
         if current_user.email != email.data:
